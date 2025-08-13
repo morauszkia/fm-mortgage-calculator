@@ -1,5 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Container from "./components/Container.vue";
+import Footer from "./components/Footer.vue";
+</script>
 
-<template></template>
+<template>
+  <Container />
+  <Footer />
+</template>
 
 <style scoped></style>
