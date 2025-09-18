@@ -1,30 +1,52 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from "vue";
+import { createInput } from "@formkit/vue";
+import FormInput from "./FormInput.vue";
+
+const formData = ref({});
+
+const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
+</script>
 
 <template>
-  <form>
+  <FormKit
+    type="form"
+    submit-label="Calculate Repayments"
+    v-model="formData"
+    @submit="
+      () => {
+        console.log('Submitting...');
+      }
+    "
+  >
     <h1>Mortgage Calculator</h1>
-    <button type="reset">Clear All</button>
-    <div>
-      <label for="amount">Mortgage Amount</label
-      ><input type="number" id="amount" />
-    </div>
-    <div>
-      <label for="term">Mortgage Term</label><input type="number" id="term" />
-    </div>
-    <div>
-      <label for="rate">Interest Rate</label><input type="number" id="rate" />
-    </div>
-    <div>
-      <label for="type">Mortgage Type</label>
-      <input type="radio" name="type" id="repayment" /><label for="repayment"
-        >Repayment</label
-      >
-      <input type="radio" name="type" id="interest" /><label for="interest"
-        >Interest Only</label
-      >
-    </div>
-    <button type="submit">Calculate Repayments</button>
-  </form>
+    <FormKit type="button" id="clear" label="Clear All" />
+    <FormKit
+      :type="mortgageInput"
+      label="Mortgage Amount"
+      name="amount"
+      prefix="£"
+    />
+    <FormKit
+      :type="mortgageInput"
+      label="Mortgage Term"
+      name="term"
+      suffix="years"
+    />
+    <FormKit
+      :type="mortgageInput"
+      label="Interest Rate"
+      name="rate"
+      suffix="%"
+    />
+    <FormKit
+      type="radio"
+      label="Mortgage Type"
+      :options="{ repayment: 'Repayment', interest: 'Interest only' }"
+      name="type"
+    />
+  </FormKit>
+  <pre wrap>{{ formData }}</pre>
 </template>
 
 <style scoped></style>
