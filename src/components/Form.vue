@@ -3,7 +3,13 @@ import { ref } from "vue";
 import { createInput } from "@formkit/vue";
 import FormInput from "./FormInput.vue";
 
-const formData = ref({});
+const formData = ref({
+  amount: null,
+  term: null,
+  rate: null,
+  type: null,
+  ioterm: null,
+});
 
 const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
 </script>
@@ -45,8 +51,14 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
       :options="{ repayment: 'Repayment', interest: 'Interest only' }"
       name="type"
     />
+    <FormKit
+      v-if="formData?.type === 'interest'"
+      :type="mortgageInput"
+      label="Interest Only Term"
+      name="ioterm"
+      suffix="years"
+    />
   </FormKit>
-  <pre wrap>{{ formData }}</pre>
 </template>
 
 <style scoped></style>
