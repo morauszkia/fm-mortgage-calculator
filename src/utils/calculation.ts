@@ -1,40 +1,30 @@
-type MonthlyPaymentData =
-  | number
-  | { interestOnlyMonthly: number; repaymentPeriodMonthly: number };
+import type { CompleteFormData, MonthlyPaymentData } from "../types/types";
 
-export function calculateMortgage(
-  amount: number,
-  rate: number,
-  years: number,
-  type: "repayment" | "interest",
-  interestOnlyYears: number = 0
-) {
-  const monthlyRate = rate / 100 / 12;
-  let monthly: MonthlyPaymentData;
+export function calculateMortgage(inputData: CompleteFormData) {
+  const { amount, rate, term, type, ioterm } = inputData;
+
+  const monthlyRate = +rate / 100 / 12;
+  let monthly: MonthlyPaymentData = { repaymentPeriodMonthly: 0 };
   let total: number;
 
   if (type === "repayment") {
-    const months = years * 12;
+    const months = +term! * 12;
 
-    monthly =
-      (amount * (monthlyRate * (1 + monthlyRate) ** months)) /
+    monthly.repaymentPeriodMonthly =
+      (+amount * (monthlyRate * (1 + monthlyRate) ** months)) /
       ((1 + monthlyRate) ** months - 1);
 
-    total = months * monthly;
+    total = months * monthly.repaymentPeriodMonthly;
   } else {
-    const interestOnlyMonths = 12 * interestOnlyYears;
-    const repaymentMonths = 12 * (years - interestOnlyYears);
-    const interestOnlyMonthly = amount * monthlyRate;
-    const repaymentPeriodMonthly =
-      (amount * monthlyRate) /
+    const interestOnlyMonths = 12 * +ioterm!;
+    const repaymentMonths = 12 * (+term - ioterm!);
+    monthly.interestOnlyMonthly = +amount * monthlyRate;
+    monthly.repaymentPeriodMonthly =
+      (+amount * monthlyRate) /
       (1 - Math.pow(1 + monthlyRate, -repaymentMonths));
-    monthly = {
-      interestOnlyMonthly,
-      repaymentPeriodMonthly,
-    };
     total =
-      interestOnlyMonths * interestOnlyMonthly +
-      repaymentMonths * repaymentPeriodMonthly;
+      interestOnlyMonths * monthly.interestOnlyMonthly +
+      repaymentMonths * monthly.repaymentPeriodMonthly;
   }
 
   return {
