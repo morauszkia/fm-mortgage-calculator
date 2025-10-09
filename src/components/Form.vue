@@ -1,14 +1,15 @@
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import { createInput } from "@formkit/vue";
 import FormInput from "./FormInput.vue";
+import type { FormData } from "../types/types";
 
-const formData = ref({
-  amount: null,
-  term: null,
-  rate: null,
-  type: null,
-  ioterm: null,
+const formData: Ref<FormData> = ref({
+  amount: undefined,
+  term: undefined,
+  rate: undefined,
+  type: undefined,
+  ioterm: undefined,
 });
 
 const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
@@ -19,11 +20,7 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
     type="form"
     submit-label="Calculate Repayments"
     v-model="formData"
-    @submit="
-      () => {
-        console.log('Submitting...');
-      }
-    "
+    @submit="$emit('update', formData)"
   >
     <h1>Mortgage Calculator</h1>
     <FormKit type="button" id="clear" label="Clear All" />
@@ -52,7 +49,7 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
       name="type"
     />
     <FormKit
-      v-if="formData?.type === 'interest'"
+      v-if="formData.type === 'interest'"
       :type="mortgageInput"
       label="Interest Only Term"
       name="ioterm"
