@@ -7,6 +7,12 @@
 </template>
 
 <style scoped>
+footer {
+  position: absolute;
+  bottom: 1rem;
+  width: 100%;
+}
+
 .attribution {
   font-size: 0.75rem;
   text-align: center;

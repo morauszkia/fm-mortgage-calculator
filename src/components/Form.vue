@@ -23,7 +23,7 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
     @submit="$emit('update', formData)"
   >
     <h1>Mortgage Calculator</h1>
-    <FormKit type="button" id="clear" label="Clear All" />
+    <FormKit type="button" label="Clear All" />
     <FormKit
       :type="mortgageInput"
       label="Mortgage Amount"
@@ -58,4 +58,18 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
   </FormKit>
 </template>
 
-<style scoped></style>
+<style scoped>
+form {
+  padding: var(--padding-sm);
+  background-color: var(--white);
+  color: var(--slate-700);
+}
+
+h1 {
+  color: var(--slate-900);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+</style>

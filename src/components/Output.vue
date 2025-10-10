@@ -4,6 +4,8 @@ const props = defineProps<{
   total: number | null;
   monthly: MonthlyPaymentData | null;
 }>();
+
+import imgUrl from "../assets/images/illustration-empty.svg";
 </script>
 
 <template>
@@ -39,6 +41,7 @@ const props = defineProps<{
 
   <section v-else>
     <!-- Empty results -->
+    <img :src="imgUrl" alt="Calculation illustration" />
     <h2>Results shown here</h2>
     <p>
       Complete the form and click “calculate repayments” to see what your
@@ -47,4 +50,20 @@ const props = defineProps<{
   </section>
 </template>
 
-<style scoped></style>
+<style scoped>
+section {
+  padding: var(--padding-sm);
+  background-color: var(--slate-900);
+  color: var(--slate-300);
+  line-height: 1.5;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+h2 {
+  color: var(--white);
+}
+</style>
