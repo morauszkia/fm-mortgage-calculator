@@ -8,9 +8,9 @@
 
 <style scoped>
 footer {
-  position: absolute;
-  bottom: 1rem;
-  width: 100%;
+  background-color: var(--slate-900);
+  color: var(--slate-100);
+  padding-bottom: 1rem;
 }
 
 .attribution {
@@ -18,6 +18,13 @@ footer {
   text-align: center;
 }
 .attribution a {
-  color: hsl(228, 45%, 44%);
+  color: var(--slate-700);
+}
+
+@media (min-width: 640px) {
+  footer {
+    position: absolute;
+    width: 100%;
+  }
 }
 </style>
