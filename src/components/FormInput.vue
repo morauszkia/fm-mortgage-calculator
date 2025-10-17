@@ -9,9 +9,17 @@ function handleInput(e: Event) {
 </script>
 
 <template>
-  <div>
-    <span v-if="props.context?.prefix">{{ props.context?.prefix }}</span>
-    <input type="text" @input="handleInput" />
-    <span v-if="props.context?.suffix">{{ props.context?.suffix }}</span>
-  </div>
+  <span v-if="props.context?.prefix" :class="props.context?.classes.prefix">{{
+    props.context?.prefix
+  }}</span>
+  <input
+    type="text"
+    @input="handleInput"
+    :class="props.context?.classes.input"
+    :id="props.context?.id"
+    :name="props.context?.name"
+  />
+  <span v-if="props.context?.suffix" :class="props.context?.classes.suffix">{{
+    props.context?.suffix
+  }}</span>
 </template>
