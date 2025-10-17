@@ -3,6 +3,7 @@ import { ref, type Ref } from "vue";
 import { createInput } from "@formkit/vue";
 import FormInput from "./FormInput.vue";
 import type { FormData } from "../types/types";
+import calculatorSvg from "../assets/images/icon-calculator.svg?raw";
 
 const formData: Ref<FormData> = ref({
   amount: undefined,
@@ -12,34 +13,44 @@ const formData: Ref<FormData> = ref({
   ioterm: undefined,
 });
 
-const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
+const mortgageInput = createInput(FormInput, {
+  props: ["prefix", "suffix"],
+});
 </script>
 
 <template>
   <FormKit
     type="form"
     submit-label="Calculate Repayments"
+    :submit-attrs="{
+      prefixIcon: calculatorSvg,
+    }"
     v-model="formData"
     @submit="$emit('update', formData)"
   >
-    <h1>Mortgage Calculator</h1>
-    <FormKit type="button" label="Clear All" />
+    <div class="header">
+      <h1>Mortgage Calculator</h1>
+      <FormKit type="button" label="Clear All" />
+    </div>
     <FormKit
       :type="mortgageInput"
       label="Mortgage Amount"
       name="amount"
+      id="amount"
       prefix="£"
     />
     <FormKit
       :type="mortgageInput"
       label="Mortgage Term"
       name="term"
+      id="term"
       suffix="years"
     />
     <FormKit
       :type="mortgageInput"
       label="Interest Rate"
       name="rate"
+      id="rate"
       suffix="%"
     />
     <FormKit
@@ -53,6 +64,7 @@ const mortgageInput = createInput(FormInput, { props: ["prefix", "suffix"] });
       :type="mortgageInput"
       label="Interest Only Term"
       name="ioterm"
+      id="ioterm"
       suffix="years"
     />
   </FormKit>
@@ -63,6 +75,9 @@ form {
   padding: var(--padding-sm);
   background-color: var(--white);
   color: var(--slate-700);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 h1 {
