@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, toRaw, type Ref } from "vue";
+import { reactive } from "vue";
 import Form from "./Form.vue";
 import Output from "./Output.vue";
 import type { CompleteFormData, FormData, RepaymentData } from "../types/types";
@@ -25,17 +25,16 @@ function calculateRepayments(inputData: FormData): void {
     mortgageRepaymentData.total = total;
     mortgageRepaymentData.monthly = monthly;
   }
-  console.log(mortgageRepaymentData);
+}
+
+function handleUpdate(data: FormData) {
+  calculateRepayments(data);
 }
 </script>
 
 <template>
   <main>
-    <Form
-      @update="(data: Ref<FormData, FormData>) => {
-      calculateRepayments(toRaw(data) as FormData);
-      }"
-    />
+    <Form @update="handleUpdate" />
     <Output v-bind="mortgageRepaymentData" />
   </main>
 </template>

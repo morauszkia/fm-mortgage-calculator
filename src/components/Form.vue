@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import { ref, type Ref } from "vue";
-import { createInput } from "@formkit/vue";
+import { createInput, reset } from "@formkit/vue";
 import FormInput from "./FormInput.vue";
 import type { FormData } from "../types/types";
 import calculatorSvg from "../assets/images/icon-calculator.svg?raw";
 
-const formData: Ref<FormData> = ref({
+const initialFormData: FormData = {
   amount: undefined,
   term: undefined,
   rate: undefined,
   type: undefined,
   ioterm: undefined,
-});
+};
+
+const formData: Ref<FormData> = ref(initialFormData);
 
 const mortgageInput = createInput(FormInput, {
   props: ["prefix", "suffix"],
@@ -21,16 +23,26 @@ const mortgageInput = createInput(FormInput, {
 <template>
   <FormKit
     type="form"
+    id="mortgage-form"
     submit-label="Calculate Repayments"
     :submit-attrs="{
       prefixIcon: calculatorSvg,
     }"
     v-model="formData"
-    @submit="$emit('update', formData)"
+    :value="initialFormData"
+    @submit="
+      (data) => {
+        $emit('update', data);
+      }
+    "
   >
     <div class="header">
       <h1>Mortgage Calculator</h1>
-      <FormKit type="button" label="Clear All" />
+      <FormKit
+        type="button"
+        label="Clear All"
+        @click="reset('mortgage-form')"
+      />
     </div>
     <FormKit
       :type="mortgageInput"
@@ -38,6 +50,7 @@ const mortgageInput = createInput(FormInput, {
       name="amount"
       id="amount"
       prefix="£"
+      validation="required:trim|number|min:1"
     />
     <FormKit
       :type="mortgageInput"
@@ -45,6 +58,7 @@ const mortgageInput = createInput(FormInput, {
       name="term"
       id="term"
       suffix="years"
+      validation="required:trim|number|min:1"
     />
     <FormKit
       :type="mortgageInput"
@@ -52,12 +66,14 @@ const mortgageInput = createInput(FormInput, {
       name="rate"
       id="rate"
       suffix="%"
+      validation="required:trim|number"
     />
     <FormKit
       type="radio"
       label="Mortgage Type"
       :options="{ repayment: 'Repayment', interest: 'Interest only' }"
       name="type"
+      validation="required"
     />
     <FormKit
       v-if="formData.type === 'interest'"
@@ -66,6 +82,7 @@ const mortgageInput = createInput(FormInput, {
       name="ioterm"
       id="ioterm"
       suffix="years"
+      validation="required:trim|number|min:1"
     />
   </FormKit>
 </template>
