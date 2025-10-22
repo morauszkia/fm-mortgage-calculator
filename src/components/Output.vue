@@ -114,4 +114,10 @@ h2 {
   font-weight: var(--font-weight-bold);
   color: var(--white);
 }
+
+@media screen and (min-width: 40rem) {
+  section {
+    padding: var(--padding-md);
+  }
+}
 </style>

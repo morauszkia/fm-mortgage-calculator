@@ -50,7 +50,7 @@ createApp(App)
           },
           submit: {
             input:
-              "flex justify-center items-center gap-3 cursor-pointer bg-[var(--lime)] text-[var(--slate-900)] rounded-full hover:bg-[var(--lime-50)] focus:bg-[var(--lime-50)]",
+              "flex justify-center items-center gap-3 cursor-pointer bg-[var(--lime)] text-[var(--slate-900)] rounded-full hover:bg-[var(--lime-50)] focus:bg-[var(--lime-50)] sm:w-auto px-10 py-4",
           },
         }),
       },

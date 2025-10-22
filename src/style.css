@@ -28,14 +28,23 @@
     --font-weight-base: 500;
     --font-weight-bold: 700;
     --padding-sm: 2rem 1.5rem;
+    --padding-md: 2.5rem;
   }
 
   body {
     font-family: var(--font-family);
     font-weight: var(--font-weight-base);
+    background-color: var(--slate-100);
+    position: relative;
   }
 }
 
 #app {
   min-height: 100dvh;
+}
+
+@media screen and (min-width: 40rem) {
+  body {
+    padding: var(--padding-md);
+  }
 }

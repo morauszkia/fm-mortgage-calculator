@@ -24,10 +24,7 @@ const mortgageInput = createInput(FormInput, {
   <FormKit
     type="form"
     id="mortgage-form"
-    submit-label="Calculate Repayments"
-    :submit-attrs="{
-      prefixIcon: calculatorSvg,
-    }"
+    :actions="false"
     v-model="formData"
     :value="initialFormData"
     @submit="
@@ -36,7 +33,7 @@ const mortgageInput = createInput(FormInput, {
       }
     "
   >
-    <div class="header">
+    <div class="header wide">
       <h1>Mortgage Calculator</h1>
       <FormKit
         type="button"
@@ -51,7 +48,9 @@ const mortgageInput = createInput(FormInput, {
       id="amount"
       prefix="£"
       validation="required:trim|number|min:1"
+      outer-class="wide"
     />
+
     <FormKit
       :type="mortgageInput"
       label="Mortgage Term"
@@ -74,6 +73,7 @@ const mortgageInput = createInput(FormInput, {
       :options="{ repayment: 'Repayment', interest: 'Interest only' }"
       name="type"
       validation="required"
+      outer-class="wide"
     />
     <FormKit
       v-if="formData.type === 'interest'"
@@ -83,6 +83,13 @@ const mortgageInput = createInput(FormInput, {
       id="ioterm"
       suffix="years"
       validation="required:trim|number|min:1"
+      outer-class="wide"
+    />
+    <FormKit
+      type="submit"
+      label="Calculate Repayments"
+      :prefix-icon="calculatorSvg"
+      outer-class="wide"
     />
   </FormKit>
 </template>
@@ -92,9 +99,9 @@ form {
   padding: var(--padding-sm);
   background-color: var(--white);
   color: var(--slate-700);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1.5rem;
 }
 
 h1 {
@@ -103,5 +110,28 @@ h1 {
   font-weight: var(--font-weight-bold);
   line-height: 1.25;
   margin-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 40rem) {
+  form {
+    padding: var(--padding-md);
+  }
+}
+
+@media screen and (min-width: 40rem) {
+  form {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1.5rem;
+  }
+
+  .wide {
+    grid-column: span 2;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 </style>
