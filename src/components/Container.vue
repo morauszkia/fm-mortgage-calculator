@@ -39,4 +39,15 @@ function handleUpdate(data: FormData) {
   </main>
 </template>
 
-<style scoped></style>
+<style scoped>
+main {
+  max-width: 52rem;
+}
+
+@media screen and (min-width: 40rem) {
+  main {
+    border-radius: 1.5rem;
+    overflow: hidden;
+  }
+}
+</style>

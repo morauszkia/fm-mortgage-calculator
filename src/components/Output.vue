@@ -114,4 +114,19 @@ h2 {
   font-weight: var(--font-weight-bold);
   color: var(--white);
 }
+
+hr {
+  border-color: rgba(154, 190, 213, 0.25);
+}
+
+@media screen and (min-width: 40rem) {
+  section {
+    padding: var(--padding-md);
+  }
+
+  .results {
+    padding: 2rem;
+    gap: 2rem;
+  }
+}
 </style>
