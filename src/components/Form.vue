@@ -64,6 +64,7 @@ const mortgageInput = createInput(FormInput, {
         validation="required:trim|number|min:1"
         :validation-messages="{
           required: 'This field is required',
+          number: 'Please enter a valid number',
         }"
       />
       <FormKit
@@ -72,9 +73,10 @@ const mortgageInput = createInput(FormInput, {
         name="rate"
         id="rate"
         suffix="%"
-        validation="required:trim|number"
+        validation="required:trim|number|min:0.01|max:100"
         :validation-messages="{
           required: 'This field is required',
+          number: 'Please enter a valid percentage',
         }"
       />
       <FormKit
@@ -99,6 +101,7 @@ const mortgageInput = createInput(FormInput, {
           validation="required:trim|number|min:1"
           :validation-messages="{
             required: 'This field is required',
+            number: 'Please enter a valid number',
           }"
           outer-class="wide"
         />

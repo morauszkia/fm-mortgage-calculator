@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import type { MonthlyPaymentData } from "../types/types";
+import { formatNumber } from "../utils/formatNumber";
+
 const props = defineProps<{
   total: number | null;
   monthly: MonthlyPaymentData | null;
@@ -23,24 +25,24 @@ import imgUrl from "../assets/images/illustration-empty.svg?url";
       <div v-if="!props.monthly?.interestOnlyMonthly">
         <p>Your monthly repayments</p>
         <p class="monthly">
-          &pound;{{ props.monthly!.repaymentPeriodMonthly.toFixed(2) }}
+          &pound;{{ formatNumber(props.monthly!.repaymentPeriodMonthly) }}
         </p>
       </div>
       <div v-else>
         <p>Your monthly repayments</p>
         <p>Interest only period:</p>
         <p class="monthly small">
-          &pound;{{ props.monthly!.interestOnlyMonthly.toFixed(2) }}
+          &pound;{{ formatNumber(props.monthly!.interestOnlyMonthly) }}
         </p>
         <p>After interest only period:</p>
         <p class="monthly small">
-          &pound;{{ props.monthly!.repaymentPeriodMonthly.toFixed(2) }}
+          &pound;{{ formatNumber(props.monthly!.repaymentPeriodMonthly) }}
         </p>
       </div>
       <hr />
       <div>
         <p>Total you'll repay over the term</p>
-        <p class="total">&pound;{{ props.total!.toFixed(2) }}</p>
+        <p class="total">&pound;{{ formatNumber(props.total!) }}</p>
       </div>
     </div>
   </section>

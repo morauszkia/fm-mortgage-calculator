@@ -9,11 +9,11 @@ export type RepaymentData = {
 };
 
 export type FormData = {
-  amount?: number;
-  rate?: number;
-  term?: number;
+  amount?: string;
+  rate?: string;
+  term?: string;
   type?: "repayment" | "interest";
-  ioterm?: number;
+  ioterm?: string;
 };
 
 export type CompleteFormData = Required<FormData>;
