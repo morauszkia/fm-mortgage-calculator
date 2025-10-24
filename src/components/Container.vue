@@ -42,12 +42,20 @@ function handleUpdate(data: FormData) {
 <style scoped>
 main {
   max-width: 52rem;
+  background-color: var(--white);
 }
 
 @media screen and (min-width: 40rem) {
   main {
     border-radius: 1.5rem;
     overflow: hidden;
+  }
+}
+
+@media screen and (min-width: 64rem) {
+  main {
+    max-width: 63rem;
+    display: flex;
   }
 }
 </style>

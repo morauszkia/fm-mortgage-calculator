@@ -129,4 +129,14 @@ hr {
     gap: 2rem;
   }
 }
+
+@media screen and (min-width: 64rem) {
+  section {
+    flex: 0 0 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5rem;
+  }
+}
 </style>

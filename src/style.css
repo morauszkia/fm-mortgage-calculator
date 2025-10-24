@@ -39,11 +39,8 @@
     position: relative;
     background-color: var(--slate-100);
     position: relative;
+    min-height: 100dvh;
   }
-}
-
-#app {
-  min-height: 100dvh;
 }
 
 @media screen and (min-width: 40rem) {

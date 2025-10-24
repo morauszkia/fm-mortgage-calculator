@@ -34,7 +34,7 @@ createApp(App)
             input: `w-full peer ${inputSpacing} ${inputText} focus:outline-none`,
             prefix: `order-first ${affixNormal} ${affixFocus} ${affixInvalid}`,
             suffix: `${affixNormal} ${affixFocus} ${affixInvalid}`,
-            message: "text-[var(--font-size-sm)] text-[var(--red)]",
+            message: "text-(length:--font-size-sm) text-(color:--red)",
           },
           button: {
             input:

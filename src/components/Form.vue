@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, type Ref } from "vue";
+import { ref, Transition, type Ref } from "vue";
 import { createInput, reset } from "@formkit/vue";
 import FormInput from "./FormInput.vue";
 import type { FormData } from "../types/types";
@@ -25,6 +25,7 @@ const mortgageInput = createInput(FormInput, {
     type="form"
     id="mortgage-form"
     :actions="false"
+    :incomplete-message="false"
     v-model="formData"
     :value="initialFormData"
     @submit="
@@ -33,58 +34,76 @@ const mortgageInput = createInput(FormInput, {
       }
     "
   >
-    <div class="header wide">
+    <header class="header wide">
       <h1>Mortgage Calculator</h1>
       <FormKit
         type="button"
         label="Clear All"
         @click="reset('mortgage-form')"
       />
-    </div>
-    <FormKit
-      :type="mortgageInput"
-      label="Mortgage Amount"
-      name="amount"
-      id="amount"
-      prefix="£"
-      validation="required:trim|number|min:1"
-      outer-class="wide"
-    />
-
-    <FormKit
-      :type="mortgageInput"
-      label="Mortgage Term"
-      name="term"
-      id="term"
-      suffix="years"
-      validation="required:trim|number|min:1"
-    />
-    <FormKit
-      :type="mortgageInput"
-      label="Interest Rate"
-      name="rate"
-      id="rate"
-      suffix="%"
-      validation="required:trim|number"
-    />
-    <FormKit
-      type="radio"
-      label="Mortgage Type"
-      :options="{ repayment: 'Repayment', interest: 'Interest only' }"
-      name="type"
-      validation="required"
-      outer-class="wide"
-    />
-    <FormKit
-      v-if="formData.type === 'interest'"
-      :type="mortgageInput"
-      label="Interest Only Term"
-      name="ioterm"
-      id="ioterm"
-      suffix="years"
-      validation="required:trim|number|min:1"
-      outer-class="wide"
-    />
+    </header>
+    <section class="inputs">
+      <FormKit
+        :type="mortgageInput"
+        label="Mortgage Amount"
+        name="amount"
+        id="amount"
+        prefix="£"
+        validation="required:trim|number|min:1"
+        outer-class="wide"
+        :validation-messages="{
+          required: 'This field is required',
+        }"
+      />
+      <FormKit
+        :type="mortgageInput"
+        label="Mortgage Term"
+        name="term"
+        id="term"
+        suffix="years"
+        validation="required:trim|number|min:1"
+        :validation-messages="{
+          required: 'This field is required',
+        }"
+      />
+      <FormKit
+        :type="mortgageInput"
+        label="Interest Rate"
+        name="rate"
+        id="rate"
+        suffix="%"
+        validation="required:trim|number"
+        :validation-messages="{
+          required: 'This field is required',
+        }"
+      />
+      <FormKit
+        type="radio"
+        label="Mortgage Type"
+        :options="{ repayment: 'Repayment', interest: 'Interest only' }"
+        name="type"
+        validation="required"
+        outer-class="wide"
+        :validation-messages="{
+          required: 'This field is required',
+        }"
+      />
+      <Transition>
+        <FormKit
+          v-if="formData.type === 'interest'"
+          :type="mortgageInput"
+          label="Interest Only Term"
+          name="ioterm"
+          id="ioterm"
+          suffix="years"
+          validation="required:trim|number|min:1"
+          :validation-messages="{
+            required: 'This field is required',
+          }"
+          outer-class="wide"
+        />
+      </Transition>
+    </section>
     <FormKit
       type="submit"
       label="Calculate Repayments"
@@ -99,9 +118,9 @@ form {
   padding: var(--padding-sm);
   background-color: var(--white);
   color: var(--slate-700);
-  display: grid;
-  grid-template-columns: 1fr;
-  row-gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 h1 {
@@ -112,14 +131,33 @@ h1 {
   margin-bottom: 0.5rem;
 }
 
-@media screen and (min-width: 40rem) {
-  form {
-    padding: var(--padding-md);
-  }
+.inputs {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 1.5rem;
+}
+
+.v-enter-active,
+.v-leave-from {
+  transition: all 0.5s ease-in;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  height: 0;
 }
 
 @media screen and (min-width: 40rem) {
   form {
+    padding: var(--padding-md);
+  }
+
+  form {
+    gap: 2.5rem;
+  }
+
+  .inputs {
     grid-template-columns: repeat(2, 1fr);
     column-gap: 1.5rem;
   }
