@@ -29,14 +29,11 @@
     --font-weight-bold: 700;
     --padding-sm: 2rem 1.5rem;
     --padding-md: 2.5rem;
-    --padding-md: 2.5rem;
   }
 
   body {
     font-family: var(--font-family);
     font-weight: var(--font-weight-base);
-    background-color: var(--slate-100);
-    position: relative;
     background-color: var(--slate-100);
     position: relative;
     min-height: 100dvh;
