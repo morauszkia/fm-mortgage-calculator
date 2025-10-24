@@ -49,7 +49,7 @@ const mortgageInput = createInput(FormInput, {
         name="amount"
         id="amount"
         prefix="£"
-        validation="required:trim|number|min:1"
+        validation="required:trim"
         outer-class="wide"
         :validation-messages="{
           required: 'This field is required',
